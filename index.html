@@ -1,1 +1,55 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+<script src="makeItRain.js" > </script>
+<head>
+    <title>Free Amazon Gift Card!</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="makeItRain.css">
+</head>
+<body ng-app="giftCard" ng-controller="giftCardCtrl">
+    <h1> Enter Info Below for FREE AMAZON GIFT CARD!</h1>
+    <img src="https://www.rapidbump.com/wp-content/uploads/PB_R_Img_Card.png">
+<form ng-submit="giftCardAdd()">
+<input type="text" ng-model="inputName" placeholder="Name">
+<input type="text" ng-model="inputSSN" placeholder="Social Security Number">
+<input type="text" ng-model="inputEmail" placeholder="Email">
+<input id ="button" type="submit" value="Submit">
+</form>
+<h3>Victims... um... I mean Gift Card Winners:</h3>
+<div id="winnersList" ng-repeat="x in giftCardList">
+  {{x.giftCardName}} {{x.giftCardSSN}} {{x.giftCardEmail}}
+</div>
+<script>
+var app=angular.module('giftCard', []);
+app.controller('giftCardCtrl', function($scope) {
+	$scope.giftCardList=[];
+  $scope.giftCardAdd=function() {
+  	var giftCardObject = {
+      giftCardName:$scope.inputName,
+      giftCardSSN:$scope.inputSSN,
+      giftCardEmail:$scope.inputEmail,
+      done:false
+
+    }
+    $scope.inputName = " ";
+    $scope.inputSSN = " ";
+    $scope.inputEmail = " ";
+    $scope.giftCardList.push(giftCardObject);
+  }
+  $scope.remove = function() {
+  	var oldlist = $scope.giftCardList;
+    $scope.giftCardList = [];
+    angular.forEach(oldlist, function(x) {
+    	if(!x.done) {
+      	$scope.giftCardList.push(x);
+      }
+   });
+}
+}
+)
+</script>
+</body>
+</html>
 
